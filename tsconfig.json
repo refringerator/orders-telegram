@@ -22,6 +22,15 @@
       "@/*": ["./app/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "out/page.tsxt",
+    "out/TaskList.tsxt",
+    "out/TaskItem.tsxt",
+    "out/TaskForm.tsxt"
+  ],
   "exclude": ["node_modules"]
 }
