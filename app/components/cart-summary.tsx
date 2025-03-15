@@ -17,6 +17,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { toast } from "@/hooks/use-toast";
 
+import { useToast } from "@/components/toast-provider";
+
 export default function CartSummary() {
   const {
     items,
@@ -28,6 +30,8 @@ export default function CartSummary() {
   } = useCart();
   const [customerName, setCustomerName] = useState("");
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+  //const { toasts, dismiss } = useToast();
+  const { showToast } = useToast();
 
   const handleCheckout = () => {
     if (!customerName.trim()) {
@@ -36,6 +40,7 @@ export default function CartSummary() {
         description: "Please enter your name to complete the order",
         variant: "destructive",
       });
+      showToast("Please enter your name to complete the order");
       return;
     }
 
@@ -60,6 +65,22 @@ export default function CartSummary() {
           <span className="bg-primary text-primary-foreground text-sm font-medium rounded-full px-2.5 py-0.5">
             {totalItems} {totalItems === 1 ? "item" : "items"}
           </span>
+        </div>
+        <div>
+          {/* {toasts.map((toast) => (
+            <div
+              key={toast.id}
+              style={{
+                border: "1px solid black",
+                margin: "10px",
+                padding: "10px",
+              }}
+            >
+              <h4>{toast.title}</h4>
+              <p>{toast.description}</p>
+              <button onClick={() => dismiss(toast.id)}>Dismiss</button>
+            </div>
+          ))} */}
         </div>
 
         {items.length > 0 ? (
