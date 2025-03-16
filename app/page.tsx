@@ -33,7 +33,7 @@ export default async function Home() {
             </div>
 
             <div className="lg:col-span-3">
-              <CartSummary />
+              <CartSummary categories={categories} />
             </div>
           </div>
         </div>

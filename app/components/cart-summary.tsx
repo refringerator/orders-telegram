@@ -18,7 +18,7 @@ import { Separator } from "@/components/ui/separator";
 
 import { useToast } from "@/components/toast-provider";
 
-export default function CartSummary() {
+export default function CartSummary({ categories }: { categories: any[] }) {
   const {
     items,
     removeFromCart,
@@ -157,7 +157,7 @@ export default function CartSummary() {
               Добавьте товары в корзину, чтобы продолжить
             </p>
 
-            <Sheet>
+            {/* <Sheet>
               <SheetTrigger asChild>
                 <Button variant="outline">Открыть меню</Button>
               </SheetTrigger>
@@ -169,8 +169,8 @@ export default function CartSummary() {
                   <SheetTitle>Категории</SheetTitle>
                 </SheetHeader>
                 <div className="grid gap-4 py-4">
-                  {["Food", "Drinks", "Desserts", "Snacks"].map((category) => (
-                    <SheetClose asChild key={category}>
+                  {categories.map((category) => (
+                    <SheetClose asChild key={category.id}>
                       <Button
                         variant="outline"
                         className="justify-start h-12"
@@ -179,7 +179,7 @@ export default function CartSummary() {
                           // This would ideally update the URL to filter by category
                         }}
                       >
-                        {category}
+                        {category.name}
                       </Button>
                     </SheetClose>
                   ))}
@@ -190,7 +190,7 @@ export default function CartSummary() {
                   </SheetClose>
                 </SheetFooter>
               </SheetContent>
-            </Sheet>
+            </Sheet> */}
           </div>
         )}
       </div>
