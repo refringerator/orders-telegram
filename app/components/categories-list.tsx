@@ -42,7 +42,7 @@ export default function CategoriesList({ categories }: { categories: any[] }) {
 
   return (
     <div className="mb-8">
-      <h2 className="text-xl font-semibold mb-4">Categories</h2>
+      <h2 className="text-xl font-semibold mb-4">Категории</h2>
       <Tabs
         value={activeCategory}
         onValueChange={handleCategoryChange}

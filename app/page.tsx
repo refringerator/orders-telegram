@@ -13,22 +13,20 @@ export default async function Home() {
     new Set(products.map((product: any) => product.category))
   ).map((category) => ({ id: category, name: category }));
 
-  console.log(products);
-
   return (
     <ToastProvider>
       <CartProvider>
         <div className="container mx-auto px-4 py-8">
-          <h1 className="text-3xl font-bold mb-8">Order System</h1>
+          {/* <h1 className="text-3xl font-bold mb-8">Order System</h1> */}
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="lg:col-span-9">
-              <Suspense fallback={<div>Loading categories...</div>}>
+              <Suspense fallback={<div>Загрузка категорий...</div>}>
                 <CategoriesList categories={categories} />
               </Suspense>
 
               <Suspense
-                fallback={<div className="mt-8">Loading products...</div>}
+                fallback={<div className="mt-8">Загрузка товаров...</div>}
               >
                 <ProductGrid products={products} />
               </Suspense>

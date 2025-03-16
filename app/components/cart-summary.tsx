@@ -39,7 +39,7 @@ export default function CartSummary() {
       //   description: "Please enter your name to complete the order",
       //   variant: "destructive",
       // });
-      showToast("Please enter your name to complete the order");
+      showToast("Пожалуйста, введите ваше имя для завершения заказа");
       return;
     }
 
@@ -50,7 +50,7 @@ export default function CartSummary() {
       //   title: "Order placed!",
       //   description: `Thank you ${customerName}, your order has been received.`,
       // });
-      showToast("Order placed!");
+      showToast("Заказ размещен!");
       clearCart();
       setCustomerName("");
       setIsCheckingOut(false);
@@ -61,9 +61,9 @@ export default function CartSummary() {
     <div className="sticky top-4">
       <div className="bg-card rounded-lg border shadow-sm p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold">Your Order</h2>
+          <h2 className="text-xl font-semibold">Ваш заказ</h2>
           <span className="bg-primary text-primary-foreground text-sm font-medium rounded-full px-2.5 py-0.5">
-            {totalItems} {totalItems === 1 ? "item" : "items"}
+            {totalItems} шт.
           </span>
         </div>
 
@@ -82,7 +82,7 @@ export default function CartSummary() {
                   <div className="flex-1 min-w-0">
                     <h4 className="font-medium text-sm">{item.name}</h4>
                     <p className="text-primary text-sm">
-                      ${item.price.toFixed(2)}
+                      {item.price.toFixed(2)} руб.
                     </p>
                     <div className="flex items-center mt-2">
                       <Button
@@ -125,19 +125,15 @@ export default function CartSummary() {
             <Separator className="my-4" />
 
             <div className="space-y-2 mb-6">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Subtotal</span>
-                <span>${subtotal.toFixed(2)}</span>
-              </div>
               <div className="flex justify-between font-medium">
-                <span>Total</span>
-                <span>${subtotal.toFixed(2)}</span>
+                <span>Всего</span>
+                <span>{subtotal.toFixed(2)} руб.</span>
               </div>
             </div>
 
             <div className="space-y-4">
               <Input
-                placeholder="Your name"
+                placeholder="Ваше имя"
                 value={customerName}
                 onChange={(e) => setCustomerName(e.target.value)}
               />
@@ -146,31 +142,31 @@ export default function CartSummary() {
                 onClick={handleCheckout}
                 disabled={isCheckingOut}
               >
-                {isCheckingOut ? "Processing..." : "Complete Order"}
+                {isCheckingOut ? "Обработка..." : "Подтвердить заказ"}
               </Button>
               <Button variant="outline" className="w-full" onClick={clearCart}>
-                Clear Order
+                Очистить корзину
               </Button>
             </div>
           </>
         ) : (
           <div className="py-8 text-center">
             <ShoppingCart className="mx-auto h-12 w-12 text-muted-foreground mb-3" />
-            <h3 className="font-medium mb-1">Your order is empty</h3>
+            <h3 className="font-medium mb-1">Ваша корзина пуста</h3>
             <p className="text-muted-foreground text-sm mb-6">
-              Add some items to get started
+              Добавьте товары в корзину, чтобы продолжить
             </p>
 
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="outline">Browse Menu</Button>
+                <Button variant="outline">Открыть меню</Button>
               </SheetTrigger>
               <SheetContent
                 side="bottom"
                 className="h-[80vh] sm:max-w-md sm:h-full"
               >
                 <SheetHeader>
-                  <SheetTitle>Menu Categories</SheetTitle>
+                  <SheetTitle>Категории</SheetTitle>
                 </SheetHeader>
                 <div className="grid gap-4 py-4">
                   {["Food", "Drinks", "Desserts", "Snacks"].map((category) => (
@@ -190,7 +186,7 @@ export default function CartSummary() {
                 </div>
                 <SheetFooter>
                   <SheetClose asChild>
-                    <Button>Close</Button>
+                    <Button>Закрыть</Button>
                   </SheetClose>
                 </SheetFooter>
               </SheetContent>
