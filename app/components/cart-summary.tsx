@@ -17,6 +17,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 
 import { useToast } from "@/components/toast-provider";
+import { saveOrderToSheet } from "@/actions/sheet-actions";
 
 export default function CartSummary({ categories }: { categories: any[] }) {
   const {
@@ -32,29 +33,36 @@ export default function CartSummary({ categories }: { categories: any[] }) {
   //const { toasts, dismiss } = useToast();
   const { showToast } = useToast();
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (!customerName.trim()) {
-      // toast({
-      //   title: "Name required",
-      //   description: "Please enter your name to complete the order",
-      //   variant: "destructive",
-      // });
       showToast("Пожалуйста, введите ваше имя для завершения заказа");
-      return;
     }
 
-    // Simulate order processing
     setIsCheckingOut(true);
-    setTimeout(() => {
-      // toast({
-      //   title: "Order placed!",
-      //   description: `Thank you ${customerName}, your order has been received.`,
-      // });
+    try {
+      // Create form data to pass to server action
+      const formData = new FormData();
+      formData.append(
+        "orderData",
+        JSON.stringify({
+          customerName,
+          items,
+          // Add any other data you need
+        })
+      );
+
+      await saveOrderToSheet(formData);
+
       showToast("Заказ размещен!");
       clearCart();
       setCustomerName("");
+    } catch (error) {
+      showToast(
+        "Произошла ошибка при размещении заказа. Пожалуйста, попробуйте еще раз."
+      );
+    } finally {
       setIsCheckingOut(false);
-    }, 1500);
+    }
   };
 
   return (
