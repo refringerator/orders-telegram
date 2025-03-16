@@ -1,10 +1,9 @@
 const { Telegraf } = require("telegraf");
 const { BOT_TOKEN } = require("./config");
-// const { help, start, webapp } = require("./commands");
-// const {help}
 const { help } = require("./commands/help");
 const { start } = require("./commands/start");
 const { webapp } = require("./commands/webapp");
+const { updatePrices } = require("./commands/update-prices");
 
 if (!BOT_TOKEN) {
   throw new Error("BOT_TOKEN must be provided!");
@@ -15,6 +14,7 @@ const bot = new Telegraf(BOT_TOKEN);
 bot.command("start", start);
 bot.command("help", help);
 bot.command("webapp", webapp);
+bot.command("updatePrices", updatePrices);
 
 bot.launch().then(() => {
   console.log("Bot is running...");
