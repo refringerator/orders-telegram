@@ -28,7 +28,7 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
           open={open}
           onOpenChange={setOpen}
         >
-          <Toast.Title>{message}</Toast.Title>
+          <Toast.Description>{message}</Toast.Description>
           <Toast.Close className="absolute top-1 right-2 text-gray-400 hover:text-white">
             ×
           </Toast.Close>

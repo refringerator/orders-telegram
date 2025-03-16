@@ -15,7 +15,6 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
-import { toast } from "@/hooks/use-toast";
 
 import { useToast } from "@/components/toast-provider";
 
@@ -35,11 +34,11 @@ export default function CartSummary() {
 
   const handleCheckout = () => {
     if (!customerName.trim()) {
-      toast({
-        title: "Name required",
-        description: "Please enter your name to complete the order",
-        variant: "destructive",
-      });
+      // toast({
+      //   title: "Name required",
+      //   description: "Please enter your name to complete the order",
+      //   variant: "destructive",
+      // });
       showToast("Please enter your name to complete the order");
       return;
     }
@@ -47,10 +46,11 @@ export default function CartSummary() {
     // Simulate order processing
     setIsCheckingOut(true);
     setTimeout(() => {
-      toast({
-        title: "Order placed!",
-        description: `Thank you ${customerName}, your order has been received.`,
-      });
+      // toast({
+      //   title: "Order placed!",
+      //   description: `Thank you ${customerName}, your order has been received.`,
+      // });
+      showToast("Order placed!");
       clearCart();
       setCustomerName("");
       setIsCheckingOut(false);
@@ -65,22 +65,6 @@ export default function CartSummary() {
           <span className="bg-primary text-primary-foreground text-sm font-medium rounded-full px-2.5 py-0.5">
             {totalItems} {totalItems === 1 ? "item" : "items"}
           </span>
-        </div>
-        <div>
-          {/* {toasts.map((toast) => (
-            <div
-              key={toast.id}
-              style={{
-                border: "1px solid black",
-                margin: "10px",
-                padding: "10px",
-              }}
-            >
-              <h4>{toast.title}</h4>
-              <p>{toast.description}</p>
-              <button onClick={() => dismiss(toast.id)}>Dismiss</button>
-            </div>
-          ))} */}
         </div>
 
         {items.length > 0 ? (

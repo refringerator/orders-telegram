@@ -1,5 +1,10 @@
 const { Telegraf } = require("telegraf");
-const { BOT_TOKEN, WEBAPP_URL } = require("./config");
+const { BOT_TOKEN } = require("./config");
+// const { help, start, webapp } = require("./commands");
+// const {help}
+const { help } = require("./commands/help");
+const { start } = require("./commands/start");
+const { webapp } = require("./commands/webapp");
 
 if (!BOT_TOKEN) {
   throw new Error("BOT_TOKEN must be provided!");
@@ -7,34 +12,9 @@ if (!BOT_TOKEN) {
 
 const bot = new Telegraf(BOT_TOKEN);
 
-// Basic commands
-bot.command("start", (ctx: any) => {
-  ctx.reply("Welcome to Orders Bot! 🚀\nUse /help to see available commands.");
-});
-
-bot.command("help", (ctx: any) => {
-  ctx.reply(
-    "Available commands:\n" +
-      "/start - Start the bot\n" +
-      "/help - Show this help message\n" +
-      "/webapp - Open the Mini App"
-  );
-});
-
-bot.command("webapp", (ctx: any) => {
-  const chatId = ctx.chat.id;
-  // Encode le chatId en base64
-  const encodedGroupId = Buffer.from(chatId.toString()).toString("base64");
-  console.log("Chat ID:", chatId);
-  console.log("Encoded Group ID:", encodedGroupId);
-  ctx.reply("Open Web App", {
-    reply_markup: {
-      inline_keyboard: [
-        [{ text: "Open App", url: `${WEBAPP_URL}?startapp=${encodedGroupId}` }],
-      ],
-    },
-  });
-});
+bot.command("start", start);
+bot.command("help", help);
+bot.command("webapp", webapp);
 
 bot.launch().then(() => {
   console.log("Bot is running...");
