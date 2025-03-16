@@ -5,6 +5,8 @@ import { useCart } from "@/components/cart-provider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Minus, Plus, ShoppingCart, Trash2 } from "lucide-react";
+import { initData } from "@telegram-apps/sdk-react";
+
 import {
   Sheet,
   SheetContent,
@@ -32,6 +34,8 @@ export default function CartSummary({ categories }: { categories: any[] }) {
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   //const { toasts, dismiss } = useToast();
   const { showToast } = useToast();
+
+  initData.restore();
 
   const handleCheckout = async () => {
     if (!customerName.trim()) {
@@ -69,7 +73,9 @@ export default function CartSummary({ categories }: { categories: any[] }) {
     <div className="sticky top-4">
       <div className="bg-card rounded-lg border shadow-sm p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold">Ваш заказ</h2>
+          <h2 className="text-xl font-semibold">
+            Ваш заказ: {JSON.stringify(initData)}
+          </h2>
           <span className="bg-primary text-primary-foreground text-sm font-medium rounded-full px-2.5 py-0.5">
             {totalItems} шт.
           </span>
