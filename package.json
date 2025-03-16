@@ -6,8 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "bot:dev": "ts-node bot/index.ts"
+    "lint": "next lint"
   },
   "dependencies": {
     "@google-cloud/local-auth": "^3.0.1",
