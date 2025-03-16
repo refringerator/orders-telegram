@@ -1,10 +1,12 @@
 const { google } = require("googleapis");
 const fs = require("fs");
-const { EXCEL_ID, GOOGLE_CREDS } = require("../config");
+const { EXCEL_ID, GOOGLE_CREDS, db } = require("../config");
+
+const { addDoc, collection, runTransaction } = require("firebase/firestore");
 
 const credentials = JSON.parse(fs.readFileSync(GOOGLE_CREDS));
 
-function readGoogleSheet() {
+const readGoogleSheet = async (ctx: any) => {
   // Authenticate with Google Sheets API
   const auth = new google.auth.GoogleAuth({
     credentials,
@@ -14,32 +16,34 @@ function readGoogleSheet() {
   const sheets = google.sheets({ version: "v4", auth });
 
   const spreadsheetId = EXCEL_ID;
-  const range = "Цены!A2:D500"; // Adjust based on the range you need
+  const range = "Цены!A2:D500";
 
-  try {
-    const response = sheets.spreadsheets.values
-      .get({
-        spreadsheetId,
-        range,
-      })
-      .then((res: { data: any[] }) => {
-        const rows = res.data.values;
-        if (rows.length) {
-          console.log("Data from Google Sheets:");
-          console.table(rows);
-        } else {
-          console.log("No data found.");
-        }
-      })
-      .catch((err: any) => {
-        console.error("Error reading Google Sheet:", err);
-      });
+  const response = await sheets.spreadsheets.values.get({
+    spreadsheetId,
+    range,
+  });
 
-    //require("deasync").loopWhile(() => !response);
-  } catch (err) {
-    console.error("Error:", err);
+  const rows = response.data.values;
+
+  if (!rows || rows.length === 0) {
+    ctx.reply("Не найдены данные цен в Google Sheets.");
+    return;
   }
-}
+
+  for (let i = 0; i < rows.length; i++) {
+    const [category, title, price, picture] = rows[i];
+    addDoc(collection(db, "prices"), {
+      title: title.trim(),
+      actual: true,
+      createdAt: new Date(),
+      category: category.trim(),
+      price: Number.parseFloat(price),
+      picture: picture.trim(),
+    });
+  }
+
+  ctx.reply("Каталог успешно обновлен!");
+};
 
 module.exports = {
   updatePrices: readGoogleSheet,
