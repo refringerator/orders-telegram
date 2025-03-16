@@ -5,18 +5,23 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Mock categories data
-const categories = [
-  { id: "all", name: "All Products" },
-  { id: "food", name: "Food" },
-  { id: "drinks", name: "Drinks" },
-  { id: "desserts", name: "Desserts" },
-  { id: "snacks", name: "Snacks" },
-];
+// const categories = [
+//   { id: "all", name: "All Products" },
+//   { id: "food", name: "Food" },
+//   { id: "drinks", name: "Drinks" },
+//   { id: "desserts", name: "Desserts" },
+//   { id: "snacks", name: "Snacks" },
+// ];
 
-export default function CategoriesList() {
+export default function CategoriesList({ categories }: { categories: any[] }) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState("all");
+
+  const allCategories = [
+    { id: "all", name: "Все продукты" },
+    ...(categories || []),
+  ];
 
   useEffect(() => {
     const category = searchParams.get("category") || "all";
@@ -44,7 +49,7 @@ export default function CategoriesList() {
         className="w-full"
       >
         <TabsList className="w-full justify-start overflow-x-auto">
-          {categories.map((category) => (
+          {allCategories.map((category: any) => (
             <TabsTrigger key={category.id} value={category.id} className="px-4">
               {category.name}
             </TabsTrigger>

@@ -4,8 +4,17 @@ import ProductGrid from "@/components/product-grid";
 import CartSummary from "@/components/cart-summary";
 import { CartProvider } from "@/components/cart-provider";
 import { ToastProvider } from "@/components/toast-provider";
+import { getAllPrices } from "./lib/dbhelpers";
 
-export default function Home() {
+export default async function Home() {
+  const products = await getAllPrices();
+
+  const categories = Array.from(
+    new Set(products.map((product: any) => product.category))
+  ).map((category) => ({ id: category, name: category }));
+
+  console.log(products);
+
   return (
     <ToastProvider>
       <CartProvider>
@@ -15,13 +24,13 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="lg:col-span-9">
               <Suspense fallback={<div>Loading categories...</div>}>
-                <CategoriesList />
+                <CategoriesList categories={categories} />
               </Suspense>
 
               <Suspense
                 fallback={<div className="mt-8">Loading products...</div>}
               >
-                <ProductGrid />
+                <ProductGrid products={products} />
               </Suspense>
             </div>
 

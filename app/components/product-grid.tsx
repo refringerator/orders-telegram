@@ -6,80 +6,16 @@ import { Button } from "@/components/ui/button";
 import { useCart } from "@/components/cart-provider";
 
 // Mock products data
-const products = [
-  {
-    id: 1,
-    name: "Burger",
-    price: 8.99,
-    category: "food",
-    image: "/placeholder.svg?height=200&width=200",
-  },
-  {
-    id: 2,
-    name: "Pizza",
-    price: 12.99,
-    category: "food",
-    image: "/placeholder.svg?height=200&width=200",
-  },
-  {
-    id: 3,
-    name: "Salad",
-    price: 7.99,
-    category: "food",
-    image: "/placeholder.svg?height=200&width=200",
-  },
-  {
-    id: 4,
-    name: "Soda",
-    price: 2.49,
-    category: "drinks",
-    image: "/placeholder.svg?height=200&width=200",
-  },
-  {
-    id: 5,
-    name: "Coffee",
-    price: 3.99,
-    category: "drinks",
-    image: "/placeholder.svg?height=200&width=200",
-  },
-  {
-    id: 6,
-    name: "Juice",
-    price: 3.49,
-    category: "drinks",
-    image: "/placeholder.svg?height=200&width=200",
-  },
-  {
-    id: 7,
-    name: "Cake",
-    price: 5.99,
-    category: "desserts",
-    image: "/placeholder.svg?height=200&width=200",
-  },
-  {
-    id: 8,
-    name: "Ice Cream",
-    price: 4.99,
-    category: "desserts",
-    image: "/placeholder.svg?height=200&width=200",
-  },
-  {
-    id: 9,
-    name: "Chips",
-    price: 2.99,
-    category: "snacks",
-    image: "/placeholder.svg?height=200&width=200",
-  },
-  {
-    id: 10,
-    name: "Popcorn",
-    price: 3.49,
-    category: "snacks",
-    image: "/placeholder.svg?height=200&width=200",
-  },
-];
+// const products = [
+//   {
+//     id: 1,
+//     name: "Burger",
+//     price: 8.99,
+//     category: "food",
+//     image: "/placeholder.svg?height=200&width=200",
+//   },
 
-export default function ProductGrid() {
+export default function ProductGrid({ products }: { products: any[] }) {
   const searchParams = useSearchParams();
   const { addToCart } = useCart();
   const categoryFilter = searchParams.get("category");
