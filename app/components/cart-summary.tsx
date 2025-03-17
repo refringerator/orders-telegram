@@ -45,6 +45,7 @@ function CartSummary() {
   const handleCheckout = async () => {
     if (!customerName.trim()) {
       showToast("Пожалуйста, введите ваше имя для завершения заказа");
+      return;
     }
 
     setIsCheckingOut(true);
