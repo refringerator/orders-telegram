@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useCart } from "@/components/cart-provider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,8 +20,13 @@ import { Separator } from "@/components/ui/separator";
 
 import { useToast } from "@/components/toast-provider";
 import { saveOrderToSheet } from "@/actions/sheet-actions";
+import dynamic from "next/dynamic";
 
-export default function CartSummary({ categories }: { categories: any[] }) {
+const CartSummaryClient = dynamic(() => Promise.resolve(CartSummary), {
+  ssr: false,
+});
+
+function CartSummary() {
   const {
     items,
     removeFromCart,
@@ -209,5 +214,12 @@ export default function CartSummary({ categories }: { categories: any[] }) {
         )}
       </div>
     </div>
+  );
+}
+export default function Home() {
+  return (
+    <Suspense fallback={<div className="p-8">Loading...</div>}>
+      <CartSummaryClient />
+    </Suspense>
   );
 }

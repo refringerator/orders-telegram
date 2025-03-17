@@ -33,7 +33,9 @@ export default async function Home() {
             </div>
 
             <div className="lg:col-span-3">
-              <CartSummary categories={categories} />
+              <Suspense fallback={<div className="p-8">Загрузка...</div>}>
+                <CartSummary />
+              </Suspense>
             </div>
           </div>
         </div>
