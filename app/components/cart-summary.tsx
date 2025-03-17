@@ -5,7 +5,7 @@ import { useCart } from "@/components/cart-provider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Minus, Plus, ShoppingCart, Trash2 } from "lucide-react";
-import { initData } from "@telegram-apps/sdk-react";
+import { useLaunchParams } from "@telegram-apps/sdk-react";
 
 import {
   Sheet,
@@ -40,7 +40,7 @@ function CartSummary() {
   //const { toasts, dismiss } = useToast();
   const { showToast } = useToast();
 
-  initData.restore();
+  const launchParams = useLaunchParams();
 
   const handleCheckout = async () => {
     if (!customerName.trim()) {
@@ -79,7 +79,7 @@ function CartSummary() {
       <div className="bg-card rounded-lg border shadow-sm p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold">
-            Ваш заказ: {JSON.stringify(initData)}
+            Ваш заказ: {JSON.stringify(launchParams)}
           </h2>
           <span className="bg-primary text-primary-foreground text-sm font-medium rounded-full px-2.5 py-0.5">
             {totalItems} шт.
