@@ -56,7 +56,12 @@ function CartSummary() {
         JSON.stringify({
           customerName,
           items,
-          // Add any other data you need
+          user:
+            launchParams.initData?.user?.firstName +
+            " " +
+            launchParams.initData?.user?.lastName,
+          username: launchParams.initData?.user?.username,
+          userId: launchParams.initData?.user?.id,
         })
       );
 
@@ -65,6 +70,9 @@ function CartSummary() {
       showToast("Заказ размещен!");
       clearCart();
       setCustomerName("");
+
+      if (launchParams.initData?.user?.allowsWriteToPm) {
+      }
     } catch (error) {
       showToast(
         "Произошла ошибка при размещении заказа. Пожалуйста, попробуйте еще раз."
@@ -78,9 +86,7 @@ function CartSummary() {
     <div className="sticky top-4">
       <div className="bg-card rounded-lg border shadow-sm p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold">
-            Ваш заказ: {JSON.stringify(launchParams)}
-          </h2>
+          <h2 className="text-xl font-semibold">Ваш заказ:</h2>
           <span className="bg-primary text-primary-foreground text-sm font-medium rounded-full px-2.5 py-0.5">
             {totalItems} шт.
           </span>
